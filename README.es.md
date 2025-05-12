@@ -18,8 +18,10 @@
 > So_long es un proyecto básico de videojuego 2D en la Escuela 42. El objetivo es crear un juego sencillo
 > basado en casillas, donde el jugador puede moverse por un mapa, recoger objetos y llegar a una salida para ganar.
 
+```html
 	🚀 El juego utiliza la biblioteca gráfica MiniLibX proporcionada por la escuela. El proyecto evalúa
-    la comprensión del estudiante sobre algoritmos, gráficos, manejo de entradas y gestión de memoria en C.
+    	la comprensión del estudiante sobre algoritmos, gráficos, manejo de entradas y gestión de memoria en C.
+```
 
 > [!NOTE]  
 > Debido a los requisitos de la norma de la Escuela 42:
