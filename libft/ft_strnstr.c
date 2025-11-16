@@ -18,8 +18,6 @@ char	*ft_strnstr(char *str, char *to_find, unsigned int n)
 	unsigned int	i;
 	unsigned int	j;
 
-	if (n < 0)
-		return (0);
 	if (!to_find[0])
 		return (str);
 	i = 0;
