@@ -15,7 +15,7 @@
 
 void	init_game_struct(char **matrix, t_game *game)
 {
-	game->moves = 0;
+	game->moves = 1;
 	game->row_len = ft_strlen(matrix[0]);
 	game->col_len = 0;
 	while (matrix[game->col_len] != NULL)

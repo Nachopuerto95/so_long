@@ -50,7 +50,17 @@ int	load_images(t_game *game)
 			&game->img_size, &game->img_size);
 	game->img_exit = mlx_xpm_file_to_image(game->mlx, "./img/tile_0103.xpm",
 			&game->img_size, &game->img_size);
-	game->img_coin = mlx_xpm_file_to_image(game->mlx, "./img/coin.xpm",
+	game->coin_frames[0] = mlx_xpm_file_to_image(game->mlx, "./img/coin01.xpm",
+			&game->img_size, &game->img_size);
+	game->coin_frames[1] = mlx_xpm_file_to_image(game->mlx, "./img/coin02.xpm",
+			&game->img_size, &game->img_size);
+	game->coin_frames[2] = mlx_xpm_file_to_image(game->mlx, "./img/coin03.xpm",
+			&game->img_size, &game->img_size);
+	game->coin_frames[3] = mlx_xpm_file_to_image(game->mlx, "./img/coin04.xpm",
+			&game->img_size, &game->img_size);
+	game->coin_frames[4] = mlx_xpm_file_to_image(game->mlx, "./img/coin05.xpm",
+			&game->img_size, &game->img_size);
+	game->coin_frames[5] = mlx_xpm_file_to_image(game->mlx, "./img/coin06.xpm",
 			&game->img_size, &game->img_size);
 	game->img_player = mlx_xpm_file_to_image(game->mlx, "./img/player01.xpm",
 			&game->img_size, &game->img_size);

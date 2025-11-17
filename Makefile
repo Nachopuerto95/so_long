@@ -1,5 +1,5 @@
 NAME = so_long
-SRC = main.c parse_matrix.c init_structs.c load_game.c player_movement.c draw_map.c parse_path.c
+SRC = main.c parse_matrix.c utils.c init_structs.c load_game.c player_movement.c draw_map.c parse_path.c
 OBJ = $(SRC:.c=.o)
 CC = cc
 CFLAGS = -Wall -Wextra -Werror

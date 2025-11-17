@@ -3,46 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 19:01:16 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/02/03 17:28:14 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/11/16 21:26:51 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "so_long.h"
 
-int	show_exit(t_game **game)
+static void	coin_animation(t_game *game)
 {
 	int	i;
 
 	i = 0;
-	while ((*game)->map[i] != 0)
+	while (i < 6)
 	{
-		if (ft_strchr((*game)->map[i], 'C'))
-			return (0);
+		if (game->coin_frames[i])
+			mlx_destroy_image(game->mlx, game->coin_frames[i]);
 		i++;
 	}
-	(*game)->map[(*game)->exit_y][(*game)->exit_x] = 'E';
-	return (1);
-}
-
-void	free_matrix(char **matrix)
-{
-	int	i;
-
-	i = 0;
-	while (matrix[i] != NULL)
-	{
-		free(matrix[i]);
-		i++;
-	}
-	free(matrix);
 }
 
 void	exit_game(t_game *game, int exit_code)
 {
+	char	*moves;
+
+	moves = ft_itoa(game->moves++);
+	ft_putstr_fd(moves, 1);
+	write(1, "\n", 1);
+	free(moves);
 	if (game->map)
 		free_matrix(game->map);
 	if (game->img_wall)
@@ -51,8 +42,7 @@ void	exit_game(t_game *game, int exit_code)
 		mlx_destroy_image(game->mlx, game->img_floor);
 	if (game->img_exit)
 		mlx_destroy_image(game->mlx, game->img_exit);
-	if (game->img_coin)
-		mlx_destroy_image(game->mlx, game->img_coin);
+	coin_animation(game);
 	if (game->img_player)
 		mlx_destroy_image(game->mlx, game->img_player);
 	if (game->img_enemy)
@@ -68,6 +58,19 @@ void	exit_game(t_game *game, int exit_code)
 int	close_window(t_game *game)
 {
 	exit_game(game, 0);
+	return (0);
+}
+
+int	game_loop(t_game *game)
+{
+	draw_map(game, game->frame_count);
+	if (show_exit(&game))
+		mlx_put_image_to_window(game->mlx, game->win, game->img_exit,
+			game->exit_x * game->img_size, game->exit_y * game->img_size);
+	game->frame_count++;
+	if (game->frame_count > 18000)
+		game->frame_count = 0;
+	usleep(16666);
 	return (0);
 }
 
@@ -90,9 +93,9 @@ int	main(int argc, char **argv)
 	}
 	if (!load_images(&game))
 		exit_game(&game, 0);
-	draw_map(&game);
 	mlx_key_hook(game.win, handle_keypress, &game);
 	mlx_hook(game.win, 17, 0, close_window, &game);
+	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
 	exit_game(&game, 1);
 	return (0);

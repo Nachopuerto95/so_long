@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/16 21:04:54 by jpuerto-          #+#    #+#             */
+/*   Updated: 2025/11/16 21:15:01 by jpuerto-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
@@ -13,7 +24,6 @@ typedef struct s_read
 	char	**map;
 }				t_read;
 
-
 typedef struct s_game
 {
 	void	*mlx;
@@ -23,6 +33,7 @@ typedef struct s_game
 	void	*img_floor;
 	void	*img_exit;
 	void	*img_coin;
+	void	*coin_frames[6];
 	void	*img_enemy;
 	int		img_size;
 	char	**map;
@@ -30,6 +41,8 @@ typedef struct s_game
 	int		col_len;
 	int		player_x;
 	int		player_y;
+	int		new_x;
+	int		new_y;
 	int		exit_x;
 	int		exit_y;
 	int		coins;
@@ -37,6 +50,7 @@ typedef struct s_game
 	int		moves;
 	int		coins_found;
 	int		exit_found;
+	int		frame_count;
 }				t_game;
 
 int		parse_matrix(char	**matrix, t_game *game);
@@ -50,20 +64,12 @@ int		check_key(int keycode, int *new_x, int *new_y);
 int		handle_keypress(int keycode, t_game *game);
 char	*set_img(t_game *game, char c);
 void	put_move_counter(t_game *game);
-void	draw_map(t_game *game);
+void	draw_map(t_game *game, int frame_count);
 void	exit_game(t_game *game, int exit_code);
 int		show_exit(t_game **game);
 int		check_nonvalid(char **matrix);
-void	draw_move(t_game *game, int new_x, int new_y);
-int 	check_path(t_game *game);
-
-
-
-
-
-
-
-
-
+void	draw_move(t_game *game);
+int		check_path(t_game *game);
+void	print_moves(t_game *game);
 
 #endif
